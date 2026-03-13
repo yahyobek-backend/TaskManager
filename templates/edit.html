@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <title>Rejani Tahrirlash</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Rejani Tahrirlash >>></h1><form method="post" action="{% url 'edit' task.id %}">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="task-name">Sarlavha</label>
+      <input type="text" id="task-name" name="title" value="{{ task.title }}" placeholder="Rejani kiriting...">
+
+      <label for="task-details">Tavsif</label>
+      <input type="text" id="task-details" name="description" value="{{ task.description }}" placeholder="Batafsil...">
+    </div>
+    <div class="form-group">
+      <label for="status">Holati</label>
+      <select id="status" name="status">
+        <option value="Yangi" {% if task.status == "Yangi" %}selected{% endif %}>Yangi</option>
+        <option value="Jarayonda" {% if task.status == "Jarayonda" %}selected{% endif %}>Jarayonda</option>
+        <option value="Yakunlandi" {% if task.status == "Yakunlandi" %}selected{% endif %}>Yakunlandi</option>
+      </select>
+    </div>
+    <button type="submit" class="btn">Saqlash</button>
+    <a href="{% url 'home' %}" class="btn cancel" style="text-decoration: none;">Bekor qilish</a>
+</form>
+
+    </div>
+  </body>
+</html> 

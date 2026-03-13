@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <title>To-Do List</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+  </head>
+  <body>
+    <div class="container">
+        <div class="head">
+            <h1>To-Do List</h1>
+            <div style="display: flex; align-items: center;">
+                <h3>User</h3>
+                <a href="./login.html" style="text-decoration: none; color: red;">
+                Log out
+                </a>
+            </div>
+      </div>
+
+      <div class="task-add">
+        <form id="task-form" method="post">
+            {% csrf_token %}
+            <div class="form1">
+              <input type="text" name="title" placeholder="Reja qo'shish..." required>
+              <input type="date" name="deadline">
+              <select name="status">
+                <option class="opt">
+                  Yangi
+                </option>
+                <option class="opt">
+                  Jarayonda
+                </option>
+                <option class="opt">
+                  Yakunlandi
+                </option>
+              </select>
+            </div>
+            <div class="form1">
+              <input type="text" name="description" placeholder="Batafsil ...">
+              <button type="submit" class="btn">Reja Qo'shish</button>
+            </div>
+          </form>
+      </div>
+      <hr style="margin: 10px 5px;">{% for task in tasks %}
+<div class="task">
+    <div class="task-row">
+        <!-- Sarlavha qismi -->
+        <div class="task-title">
+            {{ task.title | safe | truncatechars:20 }}
+        </div>
+
+        <!-- Boshqaruv elementlari -->
+        <div class="task-controls">
+            <!-- FAQAT SHU QISM STATUSNI CHIQARADI -->
+            {% if task.status == "Yangi" %}
+                <input type="text" value="{{ task.status }}" style="color: white; background-color: red;" readonly>
+            {% elif task.status == "Jarayonda" %}
+                <input type="text" value="{{ task.status }}" style="color: white; background-color: orange;" readonly>
+            {% elif task.status == "Yakunlandi" %}
+                <input type="text" value="{{ task.status }}" style="color: white; background-color: green;" readonly>
+            {% else %}
+                <input type="text" value="{{ task.status }}" readonly>
+            {% endif %}
+
+            <input type="date" value="{{ task.deadline|date:'Y-m-d' }}" readonly>
+
+            <a href="{% url 'edit' task.id %}" class="btn-edit">Tahrirlash</a>
+            <a href="{% url 'task-delete-confirm' task.id %}" class="btn-delete">O'chirish</a>
+        </div>
+    </div>
+
+    <!-- Batafsil ma'lumot (agar bo'lsa) -->
+    {% if task.description %}
+        <div class="task-details">
+            {{ task.description | safe }}
+        </div>
+    {% endif %}
+</div>
+{% endfor %}
+    </div>
+  </body>
+</html>
