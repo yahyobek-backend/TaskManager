@@ -4,6 +4,7 @@
   <head>
     <title>Rejani Tahrirlash</title>
     <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+      <link rel="icon" type="image/png" href="{% static 'img/icon.png' %}">
   </head>
   <body>
     <div class="container">
@@ -11,7 +12,7 @@
     {% csrf_token %}
     <div class="form-group">
       <label for="task-name">Sarlavha</label>
-      <input type="text" id="task-name" name="title" value="{{ task.title }}" placeholder="Rejani kiriting...">
+      <input type="text" id="task-name" name="title" value="{{ task.title }}" required>
 
       <label for="task-details">Tavsif</label>
       <input type="text" id="task-details" name="description" value="{{ task.description }}" placeholder="Batafsil...">
@@ -27,7 +28,6 @@
     <button type="submit" class="btn">Saqlash</button>
     <a href="{% url 'home' %}" class="btn cancel" style="text-decoration: none;">Bekor qilish</a>
 </form>
-
     </div>
   </body>
 </html> 

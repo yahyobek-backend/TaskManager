@@ -2,10 +2,11 @@
 {% load static %}
 <html>
 <head>
-	<title>Login Page</title>
+	<title>Tizimga Kirish</title>
+     <link rel="icon" type="image/png" href="{% static 'img/icon.png' %}">
 	<style>
 		body {
-			background-color: #f2f2f2;
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 			font-family: Arial, sans-serif;
 		}
 		.container {
@@ -53,13 +54,15 @@
 </head>
 <body>
 	<div class="container">
-		<h1>Login Page</h1>
-		<form method="post" action="/">
+		<h1>Tizimga Kirish</h1>
+		<form method="post">
+            {% csrf_token %}
 			<label for="username">Username:</label>
 			<input type="text" name="username" id="username" placeholder="Enter username ...">
 			<label for="password">Password:</label>
 			<input type="password" name="password" id="password" placeholder="Enter password ...">
 			<button>Login</button>
+            <a style="color: blue;" href="{% url 'register' %}">Ro'yxatdan o'tish</a>
 		</form>
 	</div>
 </body>

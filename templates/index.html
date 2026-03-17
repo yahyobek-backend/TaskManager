@@ -4,15 +4,103 @@
   <head>
     <title>To-Do List</title>
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'img/icon.png' %}">
+    <style>
+    .header-container {
+        display: flex;
+        align-items: center; /* Elementlarni vertikal markazlaydi */
+        justify-content: space-between; /* "To-Do List" va "User"ni ikki chetga suradi */
+        gap: 20px; /* Elementlar orasida masofa qoldiradi */
+        margin-bottom: 20px;
+    }
+
+    .filter-form {
+        display: flex;
+        align-items: center;
+        gap: 10px; /* Label, Select va Button orasidagi masofa */
+    }
+
+    /* Select va Button'ni biroz chiroyliroq qilish uchun */
+    select, button {
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    button {
+        background-color: blue;
+        color: white;
+        cursor: pointer;
+        border: none;
+    }
+        /* From Uiverse.io by mobinkakei */
+    .btn {
+        --color1: #1a8516;
+        --color2: #236b19;
+        perspective: 80px;
+        padding: 1em 1em;
+        background: linear-gradient(var(--color1), var(--color2));
+        border: none;
+        outline: none;
+        font-size: 15px;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        color: #fff;
+        text-shadow: 0 10px 10px #000;
+        cursor: pointer;
+        transform: rotateX(70deg) rotateZ(30deg);
+        transform-style: preserve-3d;
+        transition: transform 0.5s;
+    }
+
+    .btn::before {
+        content: "";
+        width: 100%;
+        height: 15px;
+        background-color: var(--color2);
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        transform: rotateX(90deg);
+        transform-origin: bottom;
+    }
+
+    .btn::after {
+        content: "";
+        width: 15px;
+        height: 100%;
+        background-color: var(--color1);
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: rotateY(-90deg);
+        transform-origin: right;
+    }
+
+    .btn:hover {
+        transform: rotateX(30deg) rotateZ(0);
+    }
+
+    </style>
   </head>
   <body>
     <div class="container">
         <div class="head">
-            <h1>To-Do List</h1>
+            <h1 style="color: #00a884; margin: 0; margin-right: 10px; margin-bottom: 20px;">To-Do List</h1>
+            <form method="get" class="filter-form">
+                <label for="status">Holat bo'yicha:</label>
+                <select name="status" id="status">
+                    <option value="">Hammasi</option>
+                    <option value="Yangi">Yangi Rejalar</option>
+                    <option value="Jarayonda">Jarayondagi Rejalar</option>
+                    <option value="Yakunlandi">Yakunlangan Rejalar</option>
+                </select>
+                <button type="submit">Go</button>
+            </form>
             <div style="display: flex; align-items: center;">
-                <h3>User</h3>
-                <a href="./login.html" style="text-decoration: none; color: red;">
-                Log out
+                <button class="btn">{{ request.user }}</button>
+                <a href="{% url 'logout' %}" style="text-decoration: none; color: red; margin-left: 10px;">
+                Tizimdan Chiqish
                 </a>
             </div>
       </div>
@@ -37,7 +125,7 @@
             </div>
             <div class="form1">
               <input type="text" name="description" placeholder="Batafsil ...">
-              <button type="submit" class="btn">Reja Qo'shish</button>
+              <button type="submit">Reja Qo'shish</button>
             </div>
           </form>
       </div>
